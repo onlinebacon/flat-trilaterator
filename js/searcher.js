@@ -1,5 +1,6 @@
 const { PI, sqrt, sin, cos } = Math;
 const ini_step = 0.001;
+const max_step = 0.01;
 
 const flatDistance = ([ ax, ay ], [ bx, by ], ratio) => {
     const dx = (bx - ax)*ratio;
@@ -61,6 +62,7 @@ export default class Searcher {
     }
     reward() {
         this.step *= 1.25;
+        this.step = Math.min(max_step, this.step);
         return this;
     }
 }
