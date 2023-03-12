@@ -50,7 +50,24 @@ const mercator = {
 	},
 };
 
-export default [
-	ae,
-	mercator,
-];
+const eq = {
+	name: 'Equirectangular',
+	ratio: 2,
+	radianScale: D360,
+	img: loadImage('./img/equirectangular.png'),
+	toNormal: ([ lat, lon ]) => [
+		lon/D360 + 0.5,
+		0.5 - lat/D180,
+	],
+	toCoord: ([ x, y ]) => {
+		if (x < 0 || x > 1 || y < 0 || y > 1) {
+			return [ NaN, NaN ];
+		}
+		return [
+			(0.5 - y)*D180,
+			(x - 0.5)*D360,
+		];
+	},
+};
+
+export default [ ae, mercator, eq ];
