@@ -1,8 +1,8 @@
 const { PI, sqrt, sin, cos } = Math;
 const ini_step = 0.001;
 
-const flatDistance = ([ ax, ay ], [ bx, by ]) => {
-    const dx = bx - ax;
+const flatDistance = ([ ax, ay ], [ bx, by ], ratio) => {
+    const dx = (bx - ax)*ratio;
     const dy = by - ay;
     return sqrt(dx*dx + dy*dy);
 };
@@ -17,11 +17,12 @@ export default class Searcher {
     }
     calcError() {
         const { normal, projection, circles } = this;
+        const { ratio } = projection;
         let sum = 0;
         for (let circle of circles) {
             const center = projection.toNormal(circle.coord);
             const radius = circle.radius/projection.radianScale;
-            const distance = flatDistance(normal, center);
+            const distance = flatDistance(normal, center, ratio);
             const error = distance - radius;
             sum += error*error;
         }

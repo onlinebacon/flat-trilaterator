@@ -7,10 +7,10 @@ export default class Centralizer {
         let innerHeight;
         if (screenRatio > ratio) {
             innerHeight = maxHeight;
-            innerWidth = innerHeight/ratio;
+            innerWidth = innerHeight*ratio;
         } else {
             innerWidth = maxWidth;
-            innerHeight = innerWidth*ratio;
+            innerHeight = innerWidth/ratio;
         }
         const x0 = (width - innerWidth)/2;
         const y0 = (height - innerHeight)/2;
