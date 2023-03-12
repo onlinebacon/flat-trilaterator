@@ -95,6 +95,12 @@ const updateSearchersOutput = () => {
 	}
 };
 
+circlesInput.value = `
+5°10.1'N, 150°27.5'W, 64°50.1'
+89°21.5'N, 138°56.1'E, 44°25'
+19°3.9'N, 52°4.8'W, 44°19'
+`.split('\n').filter(line => line.trim()).join('\n');
+
 updateCircles();
 adjustCanvasSize();
 render();
