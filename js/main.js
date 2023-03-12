@@ -41,16 +41,29 @@ const drawCircle = (circle) => {
 	const normal = projection.toNormal(circle.coord);
 	const [ x, y ] = centralizer.projectNormal(normal);
 	const radius = circle.radius/projection.radianScale*centralizer.height;
-	drawSpot(x, y, '#fff');
-	ctx.strokeStyle = '#fff';
+	drawSpot(x, y, 'rgba(255, 255, 255, 0.5)');
+	ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
 	ctx.beginPath();
 	ctx.arc(x, y, radius, 0, Math.PI*2);
 	ctx.stroke();
 };
 
 const drawSearcher = (searcher) => {
+	const space = 1.5;
+	const len = 3;
 	const [ x, y ] = centralizer.projectNormal(searcher.normal);
-	drawSpot(x, y, '#fc2');
+	ctx.strokeStyle = '#fc2';
+	ctx.beginPath();
+	ctx.arc(x, y, space + len/3, 0, Math.PI*2);
+	ctx.moveTo(x - space - len, y);
+	ctx.lineTo(x - space, y);
+	ctx.moveTo(x + space + len, y);
+	ctx.lineTo(x + space, y);
+	ctx.moveTo(x, y - space - len);
+	ctx.lineTo(x, y - space);
+	ctx.moveTo(x, y + space + len);
+	ctx.lineTo(x, y + space);
+	ctx.stroke();
 };
 
 const render = async () => {
