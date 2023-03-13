@@ -53,7 +53,7 @@ const mercator = {
 const eq = {
 	name: 'Equirectangular',
 	ratio: 2,
-	radianScale: D360,
+	radianScale: D180,
 	img: loadImage('./img/equirectangular.png'),
 	toNormal: ([ lat, lon ]) => [
 		lon/D360 + 0.5,
