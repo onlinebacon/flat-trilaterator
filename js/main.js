@@ -117,22 +117,13 @@ const forceFind = () => {
 };
 
 const mergeDuplicatedResults = () => {
-	const minDist = 1e-6;
-	const result = searchers.slice(0, 1);
-	for (let i=1; i<searchers.length; ++i) {
-		let add = true;
-		const a = searchers[i];
-		for (let j=0; j<result.length; ++j) {
-			const b = searchers[j];
-			const dist = a.distanceTo(b);
-			if (dist < minDist) {
-				add = false;
-				break;
-			}
-		}
-		if (add) {
-			result.push(a);
-		}
+	const result = [];
+	const map = {};
+	for (let searcher of searchers) {
+		const key = stringifySearcherResult(searcher);
+		if (map[key] === true) continue;
+		map[key] = true;
+		result.push(searcher);
 	}
 	searchers.length = 0;
 	searchers.push(...result);
@@ -147,13 +138,16 @@ const clearSearchers = () => {
 	searchers.length = 0;
 };
 
+const stringifySearcherResult = (searcher) => {
+	const coord = projection.toCoord(searcher.normal);
+	const [ lat, lon ] = coord.map((val) => val/Math.PI*180);
+	return stringifyAngles(lat, 'N', 'S') + ', ' + stringifyAngles(lon, 'E', 'W');
+};
+
 const updateSearchersOutput = () => {
 	let text = '';
 	searchers.forEach((searcher) => {
-		const coord = projection.toCoord(searcher.normal);
-		const [ lat, lon ] = coord.map((val) => val/Math.PI*180);
-		text += stringifyAngles(lat, 'N', 'S');
-		text += ', ' + stringifyAngles(lon, 'E', 'W') + '\n';
+		text += stringifySearcherResult(searcher) + '\n';
 	});
 	if (text !== resultOutput.value) {
 		resultOutput.value = text;
