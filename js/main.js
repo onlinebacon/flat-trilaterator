@@ -92,16 +92,6 @@ const addSearcher = (searcher) => {
 	searchers.push(searcher);
 };
 
-const iterateSearchers = () => {
-	for (let searcher of searchers) {
-		let { active } = searcher;
-		if (active) searcher.tryImprovements();
-		if (active && !searcher.active) {
-			console.log('done', searcher.iterations);
-		}
-	}
-};
-
 const forceFind = () => {
 	const { length } = searchers;
 	for (let i=0; i<1500; +i) {
@@ -127,11 +117,6 @@ const mergeDuplicatedResults = () => {
 	}
 	searchers.length = 0;
 	searchers.push(...result);
-};
-
-const runSearchers = () => {
-	forceFind();
-	mergeDuplicatedResults();
 };
 
 const clearSearchers = () => {
