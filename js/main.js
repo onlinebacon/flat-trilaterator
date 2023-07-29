@@ -160,8 +160,8 @@ const resetSearchers = () => {
 
 circlesInput.value = `
 16°22.9'S, 55°53.8'W, 65°59.8'
-56°39.6'N, 7°38.3'W, 50°28.6'
-8°55.6'N, 80°25.7'W, 34°30'
+56°39.6'N,  7°38.3'W, 50°28.6'
+ 8°55.6'N, 80°25.7'W, 34°30.0'
 `.split('\n').filter(line => line.trim()).join('\n');
 
 updateCircles();

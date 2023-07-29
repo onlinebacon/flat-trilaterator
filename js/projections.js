@@ -1,6 +1,6 @@
 import loadImage from './load-image.js';
 
-const { PI, sqrt, exp, log, sin, cos, tan, atan, acos } = Math;
+const { PI, sqrt, exp, log, sin, cos, tan, atan, asin, acos } = Math;
 const D45 = PI/4;
 const D360 = PI*2;
 const D180 = PI;
@@ -70,4 +70,21 @@ const eq = {
 	},
 };
 
-export default [ ae, mercator, eq ];
+const gpRatio = Math.PI/2;
+
+const gallpeters = {
+	name: 'Gall-Peters',
+	ratio: gpRatio,
+	radianScale: D360/gpRatio,
+	img: loadImage('./img/gallpeters.png'),
+	toNormal: ([ lat, lon ]) => [
+		lon/D360 + 0.5,
+		0.5 - sin(lat)/2,
+	],
+	toCoord: ([ x, y ]) => [
+		asin((0.5 - y)*2),
+		x*D360 - D180,
+	],
+};
+
+export default [ gallpeters, eq, ae, mercator ];
